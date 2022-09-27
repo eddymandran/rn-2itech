@@ -1,7 +1,7 @@
 import {Button, StyleSheet, Text, TextInput, View} from 'react-native';
 import React, {useEffect, useState} from "react";
 import {fetch} from "react-native/Libraries/Network/fetch";
-import RandomCats from "../Cat/RandomCats";
+import RandomCats from "../Cat/RandomCat";
 
 export default function EasyModeComponent() {
     const [viewCat, setViewCat] = useState(false);
