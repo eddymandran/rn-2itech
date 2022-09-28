@@ -4,14 +4,12 @@ import {useNavigation} from '@react-navigation/native';
 import EasyMode from "../Game/EasyMode"
 import MediumMode from "../Game/MediumMode"
 import HardMode from "../Game/HardMode"
-import {createStackNavigator} from "@react-navigation/stack";
 
 
 const Separator = () => (
     <View style={styles.separator}/>
 );
 
-const Stack = createStackNavigator();
 
 
 export default function SelectLevel() {

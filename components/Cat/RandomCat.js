@@ -1,23 +1,22 @@
-import React, {useEffect, useState} from "react";
-import {Image, StyleSheet, View} from "react-native";
+import React, {useState} from "react";
+import {Button, Image, StatusBar, StyleSheet, View} from "react-native";
+import {useNavigation} from "@react-navigation/native";
 
-export default function RandomCats() {
-    const [cat, setCat] = useState("");
-    const fetchCat = () => {
-        fetch("https://aws.random.cat/meow")
-            .then((response) => response.json())
-            .then((data) => setCat(data))
-    }
+export default function RandomCat({result}) {
 
-    useEffect(()=>{
-        fetchCat()
-    }, [])
+    const [cat, setCat] = useState("https://cataas.com/cat/says/" + result );
+    const navigation = useNavigation();
 
     return (
-        <View>
+        <View style={styles.container}>
             <Image
-                source={{uri: cat.file}}
+                source={{ uri: cat }}
                 style={styles.img}
+            />
+            <StatusBar hidden={true} />
+            <Button
+                title="Voulez vous rejouer ?"
+                onPress={() => navigation.navigate('Home')}
             />
         </View>
     )

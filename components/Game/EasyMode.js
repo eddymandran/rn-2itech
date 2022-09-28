@@ -1,9 +1,8 @@
 import {Button, StyleSheet, Text, TextInput, View} from 'react-native';
 import React, {useEffect, useState} from "react";
-import {fetch} from "react-native/Libraries/Network/fetch";
-import RandomCats from "../Cat/RandomCat";
+import RandomCat from "../Cat/RandomCat";
 
-export default function EasyModeComponent() {
+export default function EasyMode() {
     const [viewCat, setViewCat] = useState(false);
     const [operationText, setOperationText] = useState("");
     const [number, onChangeNumber] = useState(null);
@@ -13,9 +12,9 @@ export default function EasyModeComponent() {
         return Math.floor(Math.random() * max);
     }
 
-    let generateOperation = () => {
-        let number1 = getRandomInt(50);
-        let number2 = getRandomInt(50);
+    const generateOperation = () => {
+        const number1 = getRandomInt(50);
+        const number2 = getRandomInt(50);
 
         setOperationResult(number1 + number2);
 
@@ -26,7 +25,7 @@ export default function EasyModeComponent() {
         generateOperation()
     }, [])
 
-    let onSubmitClick = () => {
+    const onSubmitClick = () => {
         if (number == operationResult) {
             setViewCat(true)
             //alert("Gagne")
@@ -51,7 +50,7 @@ export default function EasyModeComponent() {
                 title="Submit"
                 color='#000000'
             ></Button>
-            {viewCat && <RandomCats />}
+            {viewCat && <RandomCat result={operationResult}/>}
         </View>
     );
 }

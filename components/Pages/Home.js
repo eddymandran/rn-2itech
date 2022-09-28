@@ -1,11 +1,11 @@
-import {Button, StatusBar, StyleSheet, Text, View} from "react-native";
+import {StatusBar, StyleSheet, Text, View} from "react-native";
 import SelectLevel from "./SelectLevel";
 import React from "react";
 
 export default function Home() {
     return (
         <View style={styles.container}>
-            <View >
+            <View>
                 <Text>Welcome to CalculaCat 2022 !!</Text>
                 <StatusBar hidden={true}/>
             </View>
