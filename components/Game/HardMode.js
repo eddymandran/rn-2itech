@@ -1,75 +1,77 @@
-import {Button, StyleSheet, Text, TextInput, View} from 'react-native';
+import {Button, StyleSheet, Text, TextInput, View} from "react-native";
 import React, {useEffect, useState} from "react";
 import RandomCat from "../Cat/RandomCat";
 
 export default function HardMode() {
     const [viewCat, setViewCat] = useState(false);
-    const [input, onChangeInput] = useState(null);
-    const [operatorState, setOperatorState] = useState(null);
+    const [operationText, setOperationText] = useState("");
+    const [number, onChangeNumber] = useState(null);
+    const [operator, onChangeOperator] = useState(null);
     const [operationResult, setOperationResult] = useState(null);
-    const [number1, setNumber1] = useState(getRandomInt(50))
-    const [number2, setNumber2] = useState(getRandomInt(50))
+    const [operatorSelected, setOperatorSelected] = useState(null);
 
 
     function getRandomInt(max) {
         return Math.floor(Math.random() * max);
     }
 
-    function generateOperation(number1, number2) {
 
-        const ops = {
-            '+': function (a, b) {
-                return a + b
-            },
-            '*': function (a, b) {
-                return a * b
-            },
-            '-': function (a, b) {
-                return a - b
-            },
-            '/': function (a, b) {
-                return a / b
-            }
-        };
+    const generateOperation = () => {
+        const number1 = getRandomInt(50);
+        const number2 = getRandomInt(50);
 
-        const switchOperator = ['+', '-', '*', '/'];
-        const random = Math.floor(Math.random() * switchOperator.length);
-        const randomOperator = switchOperator[random];
-        const result = ops[randomOperator](number1, number2).toFixed(2)
-        setOperatorState(randomOperator)
-        setOperationResult(result)
-        console.log({result})
-        console.log({randomOperator})
+
+        const operationCase =[number1 + number2, number1 - number2, number1 * number2, number1 / number2 ]
+
+        const operatorCase=['+','-','*','/'];
+
+        // Take a random Operator in arrayOperator
+        const randomId = Math.floor(Math.random() * operatorCase.length);
+
+
+
+        //random operator in variable
+        const operation  = Math.round(operationCase[randomId]).toFixed(3);
+        const myOperatorSelected  = operatorCase[randomId];
+
+
+        // Set the operation
+        setOperationText(number1 + " ? " + number2 + " = " + operation);
+        setOperatorSelected(myOperatorSelected);
     }
 
     useEffect(() => {
-        generateOperation()
-    }, [])
+        generateOperation();
+        // why multiple fetch ? console.log('OperatorSelected: ',{operatorSelected})
+    }, [operatorSelected])
 
-
-    function handleControl() {
-        if (input == operationResult) {
+    const handleControl = () => {
+        if (operator == operatorSelected) {
             setViewCat(true)
-        } else {
+            //alert("Gagne")
+        }
+        else {
             alert("Perdu")
         }
     }
 
     return (
         <View style={styles.container}>
-            <Text style={styles.text}>{number1 + " ? " + number2 + " = " + operationResult}</Text>
+            <Text nativeID='count'></Text>
+            <Text style={styles.text}>{operationText}</Text>
             <TextInput
                 style={styles.input}
-                onChangeText={onChangeInput}
-                value={input}
-                placeholder={`Type result here: ${operatorState}`}
+                onChangeText={onChangeOperator}
+                value={operator}
+                placeholder={`Type result here: ${operatorSelected}`}
+                keyboardType="numeric"
             />
             <Button
                 onPress={handleControl}
                 title="Submit"
                 color='#000000'
             ></Button>
-            {viewCat && <RandomCat result={operationResult}/>}
+            {viewCat && <RandomCat result={operationResult} />}
         </View>
     );
 }

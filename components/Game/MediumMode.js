@@ -2,6 +2,7 @@ import {Button, StyleSheet, Text, TextInput, View} from 'react-native';
 import React, {useEffect, useState} from "react";
 import RandomCat from "../Cat/RandomCat";
 
+
 export default function MediumMode() {
     const [viewCat, setViewCat] = useState(false);
     const [operationText, setOperationText] = useState("");

@@ -1,12 +1,28 @@
 import {Button, StyleSheet, Text, TextInput, View} from 'react-native';
 import React, {useEffect, useState} from "react";
 import RandomCat from "../Cat/RandomCat";
+import {getData, storeData} from "../LocalStorage";
 
 export default function EasyMode() {
     const [viewCat, setViewCat] = useState(false);
     const [operationText, setOperationText] = useState("");
-    const [number, onChangeNumber] = useState(null);
+    const [number, onChangeNumber] = useState(0);
     const [operationResult, setOperationResult] = useState(null);
+    const [succes, setSuccess] = useState(false)
+
+    useEffect(() => {
+        if (succes){
+            updateScore()
+        }
+    }, [succes])
+
+    async function updateScore(){
+        getData('score').then((res) => {
+            let newScore = 10 + parseInt(res)
+            console.log({newScore})
+            storeData('score', newScore.toString())
+        })
+    }
 
     function getRandomInt(max) {
         return Math.floor(Math.random() * max);
@@ -28,9 +44,9 @@ export default function EasyMode() {
     const onSubmitClick = () => {
         if (number == operationResult) {
             setViewCat(true)
+            setSuccess(true)
             //alert("Gagne")
-        }
-        else {
+        } else {
             alert("Perdu")
         }
     }
